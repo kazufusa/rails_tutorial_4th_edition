@@ -1,6 +1,5 @@
 FROM ruby:2.7.3
 
-# Clean up
 RUN apt-get autoremove -y \
     && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get update \
