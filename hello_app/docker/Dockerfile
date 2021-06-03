@@ -4,7 +4,7 @@ FROM ruby:2.7.3 as rails
 RUN apt-get autoremove -y \
     && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get update \
-    && apt-get -y install git nodejs sudo gosu \
+    && apt-get -y install nodejs \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
@@ -27,11 +27,13 @@ COPY ./ /usr/src/app
 ENV RAILS_ENV=production \
   RAILS_LOG_TO_STDOUT=true
 
+RUN ./bin/rails assets:precompile
+
 EXPOSE 3000
 
 CMD ["bash", "-c", "export SECRET_KEY_BASE=`./bin/rake secret` && ./bin/rails s -b 0.0.0.0"]
 
 # nginx
 FROM nginx:latest as nginx
-COPY --from=rails /usr/src/app/public /usr/share/nginx/html
-# COPY ./docker/nginx.conf /etc/nginx/nginx.conf
+COPY --from=rails /usr/src/app/public /usr/share/nginx/public
+COPY ./docker/nginx.conf /etc/nginx/nginx.conf
