@@ -16,7 +16,7 @@ RUN useradd -m developer && echo "developer ALL=NOPASSWD: ALL" >> /etc/sudoers
 
 WORKDIR /usr/src/app
 
-COPY Gemfile Gemfile.lock /usr/src/app
+COPY Gemfile Gemfile.lock /usr/src/app/
 
 RUN gem install bundler:2.2.19 -N \
   && bundle config set without development test \
