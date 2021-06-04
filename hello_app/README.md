@@ -1,24 +1,18 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## how to configure secret_key_base
 
-Things you may want to cover:
+```sh
+$ ./bin/rails secrets:setup
+$ EDITOR=vi ./bin/rails secrets:edit
+$ RAILS_MASTER_KEY=`cat ./config/secrets.yml.key` EDITOR=vi ./bin/rails secrets:edit
+# add secret_key_base: XXX....
+# you can generate the XXX... value with `./bin/rails secret`
+$ rm -rf ./config/secrets.yml.key # save the key somewhere
+```
 
-* Ruby version
+## build docker image with production mode
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```sh
+$ docker-compose build --progress=plain --build-arg RAILS_MASTER_KEY=XXX...
+```

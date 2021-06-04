@@ -24,14 +24,17 @@ RUN gem install bundler:2.2.19 -N \
 
 COPY ./ /usr/src/app
 
-ENV RAILS_ENV=production \
-  RAILS_LOG_TO_STDOUT=true
+ARG RAILS_MASTER_KEY
+
+ENV RAILS_MASTER_KEY=${RAILS_MASTER_KEY} \
+    RAILS_ENV=production \
+    RAILS_LOG_TO_STDOUT=true
 
 RUN ./bin/rails assets:precompile
 
 EXPOSE 3000
 
-CMD ["bash", "-c", "export SECRET_KEY_BASE=`./bin/rake secret` && ./bin/rails s -b 0.0.0.0"]
+CMD ["./bin/rails", "s"]
 
 # nginx
 FROM nginx:latest as nginx
