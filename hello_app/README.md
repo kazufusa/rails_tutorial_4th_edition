@@ -3,6 +3,7 @@
 ## how to configure secret_key_base
 
 ```sh
+$ ./bin/rails secrets:setup
 $ RAILS_MASTER_KEY=`cat ./config/secrets.yml.key` EDITOR=vi ./bin/rails secrets:edit
 # production:
 #   secret_key_base: XXX....
