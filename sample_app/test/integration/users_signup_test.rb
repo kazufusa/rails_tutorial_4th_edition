@@ -9,6 +9,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                          password: 'foobar',
                                          password_confirmation: 'foobar' } }
     end
+    follow_redirect!
+    assert_template 'users/show'
   end
 
   test 'invalid signup information' do
