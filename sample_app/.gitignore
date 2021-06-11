@@ -24,3 +24,5 @@
 
 # ignore spring file
 /spring/*.pid
+# Ignore encrypted secrets key file.
+config/secrets.yml.key
